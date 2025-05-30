@@ -134,13 +134,13 @@ class TestHTMLNode(unittest.TestCase):
         self.assertNotEqual(leaf, leaf2)
 
     def test_value_error_if_value_is_none(self):
-        node_without_value = LeafNode(tag='p')
+        node_without_value = LeafNode('p', None)
         with self.assertRaisesRegex(ValueError, 'LeafNode requires a value.'):
             node_without_value.to_html()
 
    # 2. Test for raw text output (no tag)
     def test_to_html_no_tag_returns_raw_value(self): # Renamed for clarity
-        leaf = LeafNode(value='Hello World') # tag is None by default
+        leaf = LeafNode(None, 'Hello World') # tag is None by default
         # Corrected assertion:
         self.assertEqual(leaf.to_html(), 'Hello World')
 
@@ -208,13 +208,13 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_none_tag_value_error(self):
         child_node = LeafNode('span', 'child')
-        parent_node = ParentNode(children=[child_node])
+        parent_node = ParentNode(None, [child_node])
         with self.assertRaisesRegex(ValueError, 'ParentNode requires a tag.'):
             parent_node.to_html()
 
     def test_none_children_value_error(self):
         child_node = LeafNode('span', 'child')
-        parent_node = ParentNode('div')
+        parent_node = ParentNode('div', None)
         with self.assertRaisesRegex(ValueError, 'ParentNode requires a child.'):
             parent_node.to_html()
 

@@ -13,13 +13,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         sections = old_node.text.split(delimiter)
         if len(sections) % 2 == 0:
             raise ValueError("invalid markdown: formatted section not closed")
-        for i in range(len(sections)):
-            if sections[i] == "":
+        for i, section_text in enumerate(sections):
+            if not section_text:
                 continue
             if i % 2 == 0:
-                split_nodes.append(TextNode(sections[i], TextType.TEXT))
+                split_nodes.append(TextNode(section_text, TextType.TEXT))
             else:
-                split_nodes.append(TextNode(sections[i], text_type))
+                split_nodes.append(TextNode(section_text, text_type))
         new_nodes.extend(split_nodes)
     return new_nodes
 
