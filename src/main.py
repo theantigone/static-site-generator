@@ -1,5 +1,6 @@
 from textnode import TextNode, TextType, text_node_to_html_node
 from htmlnode import HTMLNode, LeafNode, ParentNode
+from inline_markdown import split_nodes_delimiter
 
 def main():
     node = TextNode('This is some anchor text', TextType.LINK, 'https://www.boot.dev')
@@ -40,6 +41,13 @@ def main():
     print(test)
     print(test1)
 
+    node = TextNode("This is text with a `code block` word", TextType.TEXT)
+    new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+    print(new_nodes)
+
+    node = TextNode("This is text with a **bolded** word and **another**", TextType.TEXT)
+    new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
+    print(new_nodes)
 
 if __name__ == "__main__":
     main()
