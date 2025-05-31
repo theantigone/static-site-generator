@@ -1,6 +1,7 @@
 import re
 
 from textnode import TextNode, TextType
+from enum import Enum
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
@@ -122,3 +123,63 @@ def text_to_textnodes(text):
     new_nodes = split_nodes_image(new_nodes)
     new_nodes = split_nodes_link(new_nodes)
     return new_nodes
+
+def markdown_to_blocks(markdown):
+    # 1. Strip leading/trailing whitespace from the entire document
+    stripped_markdown = markdown.strip()
+    
+    # Handle the case of an empty or whitespace-only input string
+    if not stripped_markdown:
+        return []
+        
+    # 2. Split by two or more newlines (which constitute blank lines)
+    #    The key here is that .split('\n\n') will create empty strings
+    #    if there are more than two newlines.
+    raw_blocks = stripped_markdown.split('\n\n')
+    
+    processed_blocks = []
+    for block in raw_blocks:
+        # 3. Strip leading/trailing whitespace from each individual block
+        cleaned_block = block.strip()
+        
+        # 4. Filter out any blocks that became empty strings after stripping
+        #    This also handles the empty strings created by multiple '\n\n'
+        if cleaned_block: # An empty string is "falsey"
+            processed_blocks.append(cleaned_block)
+            
+    return processed_blocks
+
+class BlockType(Enum):
+    PARAGRAPH = 'paragraph'
+    HEADING = 'heading'
+    CODE = 'code'
+    QUOTE = 'quote'
+    UNORDERED_LIST = 'unordered_list'
+    ORDERED_LIST = 'ordered_list'
+
+def block_to_block_type(markdown):
+
+    # check for heading
+    if re.match(r"^#{1,6} ", markdown):
+        return BlockType.HEADING.value
+
+    # check for code block
+    if markdown.startswith('```') and markdown.endswith('```'):
+        return BlockType.CODE.value
+
+    lines = markdown.split('\n')
+
+    # check for quote (every line must start with a '> ')
+    if all(line.startswith('> ') for line in lines):
+        return BlockType.QUOTE.value
+
+    # check for unordered list (every line must start with a '- ')
+    if all(line.startswith('- ') for line in lines):
+        return BlockType.UNORDERED_LIST.value
+
+    # check for ordered list (must be sequential, starting from 1)
+    if all(line.startswith(f'{i+1}. ') for i, line in enumerate(lines)):
+        return BlockType.ORDERED_LIST.value
+
+    # if none of the above, it's a paragraph
+    return BlockType.PARAGRAPH.value
