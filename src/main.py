@@ -90,13 +90,59 @@ def main():
 
 This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
 
-- This is the first list item in a list block
-- This is a list item
-- This is another list item
+> This is the first list item in a list block
+> This is a list item
+> This is another list item
 '''
 
     blocks = markdown_to_blocks(md)
-    print(blocks)
+    print(blocks, '\n')
+    print(markdown_to_html_node(md).to_html(), '\n')
+
+    md = """
+This is **bolded** paragraph
+text in a p
+tag here
+
+This is another paragraph with _italic_ text and `code` here
+
+"""
+
+    # joseph = markdown_to_blocks(md)
+    node = markdown_to_html_node(md)
+    html = node.to_html()
+    print(html, '\n')
+    # print(joseph, '\n')
+
+    md = """
+# This is a heading
+
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
+
+> This is the first list item in a list block
+
+Random text here
+
+## hi
+
+### how are you
+
+#### good wbu
+
+##### awesome
+
+###### lol
+"""
+
+    # print(f'JOHNNY APPLE SEED: {joseph}', '\n')
+    # john = markdown_to_blocks(md)
+    node = markdown_to_html_node(md)
+    html = node.to_html()
+    print(html)
+    # print(john)
+    # print(f'HELLO: {node}', '\n')
+    # print(f'DIE: [{text_node_to_html_node(TextNode(md, TextType.CODE))}]', '\n')
+
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,7 @@
 import re
 
-from textnode import TextNode, TextType
+from textnode import TextNode, TextType, text_node_to_html_node
+from htmlnode import *
 from enum import Enum
 
 
@@ -116,8 +117,8 @@ def split_nodes_link(old_nodes):
     )
 
 def text_to_textnodes(text):
-    node = TextNode(text, TextType.TEXT)
-    new_nodes = split_nodes_delimiter([node], '**', TextType.BOLD)
+    new_nodes = [TextNode(text, TextType.TEXT)]
+    new_nodes = split_nodes_delimiter(new_nodes, '**', TextType.BOLD)
     new_nodes = split_nodes_delimiter(new_nodes, '_', TextType.ITALIC)
     new_nodes = split_nodes_delimiter(new_nodes, '`', TextType.CODE)
     new_nodes = split_nodes_image(new_nodes)
@@ -167,6 +168,7 @@ def block_to_block_type(markdown):
     if markdown.startswith('```') and markdown.endswith('```'):
         return BlockType.CODE.value
 
+    # split line into new lines based on '\n' syntax
     lines = markdown.split('\n')
 
     # check for quote (every line must start with a '> ')
@@ -183,3 +185,93 @@ def block_to_block_type(markdown):
 
     # if none of the above, it's a paragraph
     return BlockType.PARAGRAPH.value
+
+def markdown_to_html_node(markdown):
+    children = []
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        # print(f'CODE ELEMENTS: {[text_node_to_html_node(TextNode(block, TextType.CODE))]}', '\n')
+        # block = block.replace('\n', ' ')
+        block_type = block_to_block_type(block)
+        block_element = markdown_to_html_tags(block, block_type)
+        # print(block_element, 'haahahahahaXD\n')
+        children.append(block_element)
+        # print(f'CHILDREN TO HTML: {ParentNode('div', children).to_html()}', '\n')
+    return ParentNode('div', children)
+
+def text_to_children(text):
+    leaf_nodes = []
+    text_nodes = text_to_textnodes(text)
+    for text_node in text_nodes:
+        leaf_nodes.append(text_node_to_html_node(text_node))
+    return leaf_nodes
+
+def markdown_to_html_tags(block, block_type):
+    match block_type:
+        case 'heading':
+            if block.startswith('# '):
+                block = block.replace('# ', '', 1)
+                block_element = ParentNode('h1', text_to_children(block))
+            elif block.startswith('## '):
+                block = block.replace('## ', '', 1)
+                block_element = ParentNode('h2', text_to_children(block))
+            elif block.startswith('### '):
+                block = block.replace('### ', '', 1)
+                block_element = ParentNode('h3', text_to_children(block))
+            elif block.startswith('#### '):
+                block = block.replace('#### ', '', 1)
+                block_element = ParentNode('h4', text_to_children(block))
+            elif block.startswith('##### '):
+                block = block.replace('##### ', '', 1)
+                block_element = ParentNode('h5', text_to_children(block))
+            elif block.startswith('###### '):
+                block = block.replace('###### ', '', 1)
+                block_element = ParentNode('h6', text_to_children(block))
+        case 'code':
+            content = block
+            if content.startswith("```\n"): # Handles ``` followed by newline
+                content = content[4:]
+            elif content.startswith("```"): # Handles ``` immediately followed by content
+                content = content[3:]
+
+            if content.endswith("```"): # Handles content immediately followed by ```
+                content = content[:-3]
+
+            block_element = ParentNode('pre', [text_node_to_html_node(TextNode(content, TextType.CODE))])
+        case 'quote':
+            lines = block.split('\n')
+            cleaned_content_lines = []
+            for line in lines:
+                if line.startswith("> "):
+                    cleaned_content_lines.append(line[2:]) # Remove "> "
+                elif line.startswith(">"): # Handle cases like just ">" on an empty line if needed
+                    cleaned_content_lines.append(line[1:]) # Remove ">"
+                # If a line doesn't start with ">", block_to_block_type should not have classified it as QUOTE
+                # but good to be defensive or assume valid input from previous steps.
+            content = " ".join(cleaned_content_lines)
+            block_element = ParentNode('blockquote', [ParentNode('p', text_to_children(content))])
+        case 'unordered_list':
+            child_blocks = []
+            lines = block.split('\n')
+            for line in lines:
+                content = ""
+                if line.startswith("- "):
+                    content = line[2:]
+                # block_to_block_type should ensure valid list item format for all lines
+                if content or line == "-": # Handle cases like just "-" if that's valid.
+                                                     # Usually, content is expected after marker.
+                    child_blocks.append(ParentNode('li', text_to_children(content)))
+            block_element = ParentNode('ul', child_blocks)
+        case 'ordered_list':
+            child_blocks = []
+            ordered_list = block.split('\n')
+            for i, line in enumerate(ordered_list):
+                if line.startswith(f'{i+1}. '):
+                    cleaned_line = line.replace(f'{i+1}. ', '')
+                    # print(text_to_children(cleaned_line))
+                    child_blocks.append(ParentNode('li', text_to_children(cleaned_line)))
+            block_element = ParentNode('ol', child_blocks)
+        case _:
+            block = block.replace('\n', ' ')
+            block_element = ParentNode('p', text_to_children(block))
+    return block_element
