@@ -2,6 +2,79 @@ from textnode import TextNode, TextType, text_node_to_html_node
 from htmlnode import HTMLNode, LeafNode, ParentNode
 from inline_markdown import *
 
+import os
+import shutil
+
+def src_to_dst(src, dst):
+    print(f"Copying content from '{src}' to '{dst}'") # Informative print
+
+    if not os.path.exists(src):
+        raise FileNotFoundError(f"Source directory '{src}' does not exist.")
+    if not os.path.isdir(src):
+        raise NotADirectoryError(f"Source '{src}' is not a directory.")
+
+    # Ensure the destination is a clean, empty directory
+    if os.path.exists(dst):
+        print(f"Destination '{dst}' exists. Removing it to ensure a clean copy.")
+        shutil.rmtree(dst)
+    
+    print(f"Creating destination directory '{dst}'.")
+    os.mkdir(dst) # Use makedirs; it's fine even if only creating one level
+
+    # Get full paths of items in the source directory
+    src_item_names = os.listdir(src)
+    src_item_full_paths = []
+    for name in src_item_names:
+        src_item_full_paths.append(os.path.join(src, name))
+    
+    # Initiate the recursive copy
+    recursively_search_directory(src_item_full_paths, src, dst)
+    print("Copy complete.")
+    # No explicit return needed unless specified by requirements for testing
+
+# Your recursively_search_directory
+def recursively_search_directory(src_list, src, dst):
+    for file_path in src_list: # 'file' renamed to 'file_path' for clarity
+        if os.path.isfile(file_path):
+            print(f'copying {file_path} to {dst}') # Debug print
+            shutil.copy(file_path, dst) # Copies file into dst directory
+        elif os.path.isdir(file_path):
+            # Calculate corresponding destination directory path
+            # 'file_path' is like /path/to/src/subdir
+            # 'src' is like /path/to/src
+            # 'dst' is like /path/to/dst_root
+            # We want to create /path/to/dst_root/subdir
+            target_subdir_name = os.path.basename(file_path) # Gets 'subdir'
+            new_dst_dir = os.path.join(dst, target_subdir_name) # Creates /path/to/dst_root/subdir
+
+            # Your original way using replace also works for this specific structure:
+            # new_dst_dir_alt = file_path.replace(src, dst) 
+            # This is fine as long as 'src' is a unique prefix.
+
+            print(f'creating directory {new_dst_dir}') # Debug print
+            os.makedirs(new_dst_dir) # Create the destination subdirectory
+
+            # Get items inside the current source subdirectory
+            subdir_item_names = os.listdir(file_path)
+            subdir_item_full_paths = []
+            for name in subdir_item_names:
+                subdir_item_full_paths.append(os.path.join(file_path, name))
+            
+            print(f'recursively searching through {new_dst_dir} now') # Debug print
+            # Recursive call:
+            # src_list: items in current source subdir
+            # src: current source subdir path (file_path)
+            # dst: new destination subdir path (new_dst_dir)
+            recursively_search_directory(subdir_item_full_paths, file_path, new_dst_dir)
+        else:
+            # This case is for items that are neither a file nor a directory
+            # (e.g., broken symlinks, special files).
+            # Raising an error might be too strict; often, these are just skipped.
+            print(f"Warning: Item '{file_path}' is neither a file nor a directory. Skipping.")
+            # raise ValueError(f'Item {file_path} is not a file or directory.')
+    # return os.listdir(dst) # This returns contents of the *current* dst dir being processed.
+                           # Not typically useful in a recursive copy.
+
 def main():
     node = TextNode('This is some anchor text', TextType.LINK, 'https://www.boot.dev')
     print(node)
@@ -143,6 +216,7 @@ Random text here
     # print(f'HELLO: {node}', '\n')
     # print(f'DIE: [{text_node_to_html_node(TextNode(md, TextType.CODE))}]', '\n')
 
+    print(src_to_dst('static/', 'public/'))
 
 if __name__ == "__main__":
     main()
