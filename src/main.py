@@ -246,9 +246,26 @@ def main():
 #    # print(john)
 #    # print(f'HELLO: {node}', '\n')
 #    # print(f'DIE: [{text_node_to_html_node(TextNode(md, TextType.CODE))}]', '\n')
+
+#    md = '''
+## Tolkien Fan Club
+#
+#![JRR Tolkien sitting](/images/tolkien.png)
+#
+#Here's the deal, **I like Tolkien**.
+#
+#> "I am in fact a Hobbit in all but size."
+#>
+#> -- J.R.R. Tolkien
+#'''
+#
+#    blocks = markdown_to_blocks(md)
+#    print(blocks, '\n')
+#    print(markdown_to_html_node(md).to_html(), '\n')
 #
 #    print(src_to_dst('static/', 'public/'))
 #    print(generate_page('content/index.md', 'template.html', 'public/index.html'))
+
     src_to_dst('static/', 'public/')
     generate_page('content/index.md', 'template.html', 'public/index.html')
 

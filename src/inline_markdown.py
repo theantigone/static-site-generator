@@ -52,69 +52,58 @@ def extract_markdown_links(text):
     matches = re.findall(pattern, text)
     return matches
 
-def _split_nodes_generic(old_nodes, extract_function, new_node_type, markdown_format_string):
+def split_nodes_image(old_nodes):
     new_nodes = []
     for old_node in old_nodes:
         if old_node.text_type != TextType.TEXT:
             new_nodes.append(old_node)
             continue
-
-        text_to_process = old_node.text
-        extracted_items = extract_function(text_to_process)
-
-        if not extracted_items:
+        original_text = old_node.text
+        images = extract_markdown_images(original_text)
+        if len(images) == 0:
             new_nodes.append(old_node)
             continue
-
-        for item_tuple in extracted_items: # e.g., (alt_text, url) or (link_text, url)
-            text_content, url = item_tuple
-
-            # Reconstruct the exact markdown delimiter string
-            delimiter = markdown_format_string.format(text_content=text_content, url=url)
-
-            sections = text_to_process.split(delimiter, 1)
-
-            # If the delimiter (reconstructed from extracted item) isn't found,
-            # it implies an issue or that the text_to_process has been exhausted
-            # in a way that removed this item. The solution's error here is one way.
-            # For this exercise, if extract_function guarantees items are present,
-            # this error should ideally not be hit with valid, non-overlapping markdown.
+        for image in images:
+            sections = original_text.split(f"![{image[0]}]({image[1]})", 1)
             if len(sections) != 2:
-                raise ValueError(f"Invalid markdown, {new_node_type.value} section not found for '{delimiter}'")
-
-            # Add text before the current item, if any:
-            # checks if sections[0] is not an empty string
-            if sections[0]:
+                raise ValueError("invalid markdown, image section not closed")
+            if sections[0] != "":
                 new_nodes.append(TextNode(sections[0], TextType.TEXT))
-
-            # Add the image/link node
-            new_nodes.append(TextNode(text_content, new_node_type, url))
-
-            # Continue processing with the remainder of the text
-            text_to_process = sections[1]
-
-        # Add any remaining text after the last item:
-        # appends the original text (if it were entirely plain text) from the
-        # beginning to the new_nodes list
-        if text_to_process:
-            new_nodes.append(TextNode(text_to_process, TextType.TEXT))
+            new_nodes.append(
+                TextNode(
+                    image[0],
+                    TextType.IMAGE,
+                    image[1],
+                )
+            )
+            original_text = sections[1]
+        if original_text != "":
+            new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
 
-def split_nodes_image(old_nodes):
-    return _split_nodes_generic(
-        old_nodes,
-        extract_markdown_images,
-        TextType.IMAGE,
-        "![{text_content}]({url})" # Format string for image markdown
-    )
 
 def split_nodes_link(old_nodes):
-    return _split_nodes_generic(
-        old_nodes,
-        extract_markdown_links,
-        TextType.LINK,
-        "[{text_content}]({url})" # Format string for link markdown
-    )
+    new_nodes = []
+    for old_node in old_nodes:
+        if old_node.text_type != TextType.TEXT:
+            new_nodes.append(old_node)
+            continue
+        original_text = old_node.text
+        links = extract_markdown_links(original_text)
+        if len(links) == 0:
+            new_nodes.append(old_node)
+            continue
+        for link in links:
+            sections = original_text.split(f"[{link[0]}]({link[1]})", 1)
+            if len(sections) != 2:
+                raise ValueError("invalid markdown, link section not closed")
+            if sections[0] != "":
+                new_nodes.append(TextNode(sections[0], TextType.TEXT))
+            new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
+            original_text = sections[1]
+        if original_text != "":
+            new_nodes.append(TextNode(original_text, TextType.TEXT))
+    return new_nodes
 
 def text_to_textnodes(text):
     new_nodes = [TextNode(text, TextType.TEXT)]
@@ -172,7 +161,7 @@ def block_to_block_type(markdown):
     lines = markdown.split('\n')
 
     # check for quote (every line must start with a '> ')
-    if all(line.startswith('> ') for line in lines):
+    if lines and all(line.startswith('>') for line in lines):
         return BlockType.QUOTE.value
 
     # check for unordered list (every line must start with a '- ')
@@ -190,13 +179,13 @@ def markdown_to_html_node(markdown):
     children = []
     blocks = markdown_to_blocks(markdown)
     for block in blocks:
-        # print(f'CODE ELEMENTS: {[text_node_to_html_node(TextNode(block, TextType.CODE))]}', '\n')
-        # block = block.replace('\n', ' ')
+        #print(f'CODE ELEMENTS: {[text_node_to_html_node(TextNode(block, TextType.CODE))]}', '\n')
+        #block = block.replace('\n', ' ')
         block_type = block_to_block_type(block)
         block_element = markdown_to_html_tags(block, block_type)
-        # print(block_element, 'haahahahahaXD\n')
+        #print(block_element, 'haahahahahaXD\n')
         children.append(block_element)
-        # print(f'CHILDREN TO HTML: {ParentNode('div', children).to_html()}', '\n')
+        #print(f'CHILDREN TO HTML: {ParentNode('div', children).to_html()}', '\n')
     return ParentNode('div', children)
 
 def text_to_children(text):
@@ -239,17 +228,19 @@ def markdown_to_html_tags(block, block_type):
 
             block_element = ParentNode('pre', [text_node_to_html_node(TextNode(content, TextType.CODE))])
         case 'quote':
-            lines = block.split('\n')
+            lines_in_block = block.split('\n')
+            #print(lines_in_block)
             cleaned_content_lines = []
-            for line in lines:
+            for line in lines_in_block:
                 if line.startswith("> "):
                     cleaned_content_lines.append(line[2:]) # Remove "> "
                 elif line.startswith(">"): # Handle cases like just ">" on an empty line if needed
                     cleaned_content_lines.append(line[1:]) # Remove ">"
                 # If a line doesn't start with ">", block_to_block_type should not have classified it as QUOTE
                 # but good to be defensive or assume valid input from previous steps.
-            content = " ".join(cleaned_content_lines)
-            block_element = ParentNode('blockquote', [ParentNode('p', text_to_children(content))])
+            full_quote_content = " ".join(cleaned_content_lines)
+            children_nodes = text_to_children(full_quote_content)
+            block_element = ParentNode('blockquote', children_nodes)
         case 'unordered_list':
             child_blocks = []
             lines = block.split('\n')

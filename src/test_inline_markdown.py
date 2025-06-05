@@ -562,10 +562,10 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         html = node.to_html()
         self.assertEqual(
             html,
-            "<div><h1>This is a heading</h1><p>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.</p><blockquote><p>This is the first list item in a list block This is a list item This is another list item</p></blockquote></div>",
+            "<div><h1>This is a heading</h1><p>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.</p><blockquote>This is the first list item in a list block This is a list item This is another list item</blockquote></div>",
         )
 
-    def test_quote_block(self):
+    def test_another_quote_block(self):
         md = """
 # This is a heading
 
@@ -590,7 +590,7 @@ Random text here
         html = node.to_html()
         self.assertEqual(
             html,
-            "<div><h1>This is a heading</h1><p>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.</p><blockquote><p>This is the first list item in a list block</p></blockquote><p>Random text here</p><h2>hi</h2><h3>how are you</h3><h4>good wbu</h4><h5>awesome</h5><h6>lol</h6></div>",
+            "<div><h1>This is a heading</h1><p>This is a paragraph of text. It has some <b>bold</b> and <i>italic</i> words inside of it.</p><blockquote>This is the first list item in a list block</blockquote><p>Random text here</p><h2>hi</h2><h3>how are you</h3><h4>good wbu</h4><h5>awesome</h5><h6>lol</h6></div>",
         )
 
 
