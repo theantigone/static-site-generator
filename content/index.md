@@ -1,46 +1,29 @@
-# Tolkien Fan Club
+# Quang Hoang's Website
 
-![JRR Tolkien sitting](/images/tolkien.png)
+### Hi, I'm Quang Hoang, and welcome to my page!
 
-Here's the deal, **I like Tolkien**.
+## About Me
 
-> "I am in fact a Hobbit in all but size."
+> I'm Quang Hoang, a junior pursuing Computer Science at William & Mary!
 >
-> -- J.R.R. Tolkien
+> I like to spend time reading, writing, playing chess and other video games, and optimizing computers! 
 
-## Blog posts
+## Projects
 
-- [Why Glorfindel is More Impressive than Legolas](/blog/glorfindel)
-- [Why Tom Bombadil Was a Mistake](/blog/tom)
-- [The Unparalleled Majesty of "The Lord of the Rings"](/blog/majesty)
+- [Static Site Generator](/projects/static-site-generator)
+- [MusiKumiLove](/projects/musikumilove)
+- [Robert's Rules of Order](/projects/ronr)
+- [Racing Car Game](/projects/racing-car-game)
 
-## Reasons I like Tolkien
+## Socials
 
-- You can spend years studying the legendarium and still not understand its depths
-- It can be enjoyed by children and adults alike
-- Disney _didn't ruin it_ (okay, but Amazon might have)
-- It created an entirely new genre of fantasy
+- [LinkedIn](https://www.linkedin.com/in/quanghoang1)
+- [GitHub](https://github.com/theantigone)
 
-## My favorite characters (in order)
-
-1. Gandalf
-2. Bilbo
-3. Sam
-4. Glorfindel
-5. Galadriel
-6. Elrond
-7. Thorin
-8. Sauron
-9. Aragorn
-
-Here's what `elflang` looks like (the perfect coding language):
+## Coding Languages
 
 ```
-func main(){
-    fmt.Println("Aiya, Ambar!")
-}
+Java, Python, C, HTML, CSS, JavaScript, TypeScript
 ```
 
 Want to get in touch? [Contact me here](/contact).
-
-This site was generated with a custom-built [static site generator](https://www.boot.dev/courses/build-static-site-generator-python) from the course on [Boot.dev](https://www.boot.dev).

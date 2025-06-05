@@ -2,8 +2,6 @@
 
 [< Back Home](/)
 
-Give me a call anytime to chat about Tolkien!
+Feel free to **contact me** for inquiries!
 
-`555-555-5555`
-
-**"Váya márië."**
+[qhoang@wm.edu](mailto:qhoang@wm.edu)
