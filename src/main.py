@@ -6,10 +6,15 @@ import os
 import shutil
 import sys
 
-if sys.argv[1]:
+if len(sys.argv) > 1:
     basepath = sys.argv[1]
+    # Ensure basepath starts and ends with a slash if it's not just "/"
+    if not basepath.startswith("/"):
+        basepath = "/" + basepath
+    if not basepath.endswith("/") and basepath != "/":
+        basepath = basepath + "/"
 else:
-    basepath = '/'
+    basepath = "/" # Default for root deployment
 
 def src_to_dst(src, dst):
     print(f"Copying content from '{src}' to '{dst}'") # Informative print
@@ -106,7 +111,7 @@ def generate_page(from_path, template_path, dest_path, basepath):
     final_html_content = template.replace('{{ Title }}', title)
     final_html_content = final_html_content.replace('{{ Content }}', html)
     final_html_content = final_html_content.replace('href="/', f'href="{basepath}')
-    final_html_content = final_html_content.replace('src="/', f'href="{basepath}')
+    final_html_content = final_html_content.replace('src="/', f'src="{basepath}')
 
     html_filename = os.path.basename(dest_path)
     directory_path = os.path.dirname(dest_path)
