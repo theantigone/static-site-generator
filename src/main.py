@@ -106,6 +106,67 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path, 'w') as fp:
         fp.write(final_html_content)
 
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    print(f"Processing directory: {dir_path_content}") # Helpful for debugging
+    src_dir_list = os.listdir(dir_path_content)
+    for item_name in src_dir_list: # Changed 'src_path' to 'item_name' for clarity
+        full_src_path = os.path.join(dir_path_content, item_name)
+        
+        if os.path.isdir(full_src_path):
+            # This is a subdirectory in the content folder
+            print(f"Found subdirectory: {item_name}")
+            
+            # Path for the source subdirectory (this is full_src_path)
+            # src_subdir_to_recurse = full_src_path # No need for src_path_joined
+
+            # Path for the corresponding destination subdirectory
+            dest_subdir_for_recursion = os.path.join(dest_dir_path, item_name)
+            
+            # CRITICAL: Create the destination subdirectory if it doesn't exist
+            # This needs to happen *before* you try to put files in it or recurse into it
+            print(f"Ensuring destination subdirectory exists: {dest_subdir_for_recursion}")
+            os.makedirs(dest_subdir_for_recursion, exist_ok=True) 
+            
+            # Recursive call
+            generate_pages_recursive(full_src_path, template_path, dest_subdir_for_recursion)
+            
+        elif os.path.isfile(full_src_path):
+            # This is a file in the content folder
+            print(f"Found file: {item_name}")
+            
+            # BUG 1 & 2 & 3: The logic below is incorrect.
+            # It ignores the actual file found (full_src_path / item_name)
+            # and always tries to process "index.md".
+            # It also doesn't check if the file is a Markdown file.
+
+            # --- CORRECTED FILE HANDLING LOGIC ---
+            if item_name.endswith(".md"): # Process only Markdown files
+                # Determine the output HTML filename (change .md to .html)
+                base_name_without_ext, _ = os.path.splitext(item_name)
+                output_html_filename = base_name_without_ext + ".html"
+                
+                # Construct the full destination path for the HTML file
+                # It should go into the current dest_dir_path
+                full_dest_html_path = os.path.join(dest_dir_path, output_html_filename)
+                
+                print(f"Generating page for Markdown file: {full_src_path}")
+                print(f"  Output HTML will be: {full_dest_html_path}")
+                
+                # Call your existing generate_page function
+                # generate_page(source_markdown_path, template_file_path, destination_html_path)
+                generate_page(full_src_path, template_path, full_dest_html_path)
+            else:
+                print(f"Skipping non-Markdown file: {item_name}")
+                # Optionally, you could copy other static files here if needed,
+                # but the lesson usually separates static asset copying.
+            # --- END OF CORRECTED FILE HANDLING LOGIC ---
+            
+        else:
+            # This handles cases like broken symlinks or other special file types
+            print(f"Warning: Item '{item_name}' in '{dir_path_content}' is neither a file nor a directory. Skipping.")
+            
+    # No return value is typically needed for a function that performs actions like this
+
 def main():
 #    node = TextNode('This is some anchor text', TextType.LINK, 'https://www.boot.dev')
 #    print(node)
@@ -267,7 +328,12 @@ def main():
 #    print(generate_page('content/index.md', 'template.html', 'public/index.html'))
 
     src_to_dst('static/', 'public/')
-    generate_page('content/index.md', 'template.html', 'public/index.html')
+#    generate_page('content/index.md', 'template.html', 'public/index.html')
+#    generate_page('content/blog/glorfindel/index.md', 'template.html', 'public/blog/glorfindel/index.html')
+#    generate_page('content/blog/tom/index.md', 'template.html', 'public/blog/tom/index.html')
+#    generate_page('content/blog/majesty/index.md', 'template.html', 'public/blog/majesty/index.html')
+#    generate_page('content/contact/index.md', 'template.html', 'public/contact/index.html')
+    generate_pages_recursive('content', 'template.html', 'public')
 
 
 if __name__ == "__main__":
