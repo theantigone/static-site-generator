@@ -4,6 +4,12 @@ from inline_markdown import *
 
 import os
 import shutil
+import sys
+
+if sys.argv[1]:
+    basepath = sys.argv[1]
+else:
+    basepath = '/'
 
 def src_to_dst(src, dst):
     print(f"Copying content from '{src}' to '{dst}'") # Informative print
@@ -83,7 +89,7 @@ def extract_title(markdown):
                 return line[2:] # Slice the string after "# "
     raise ValueError('no h1 header')
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path, basepath):
     print(f'Generating page from {from_path} to {dest_path} using {template_path}')
     print(f'converting {from_path} to list')
     with open(from_path, 'r') as f:
@@ -99,6 +105,9 @@ def generate_page(from_path, template_path, dest_path):
     # Assuming template_content is the full template string
     final_html_content = template.replace('{{ Title }}', title)
     final_html_content = final_html_content.replace('{{ Content }}', html)
+    final_html_content = final_html_content.replace('href="/', f'href="{basepath}')
+    final_html_content = final_html_content.replace('src="/', f'href="{basepath}')
+
     html_filename = os.path.basename(dest_path)
     directory_path = os.path.dirname(dest_path)
     if directory_path and not os.path.exists(directory_path):
@@ -106,7 +115,7 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path, 'w') as fp:
         fp.write(final_html_content)
 
-def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, basepath):
     print(f"Processing directory: {dir_path_content}") # Helpful for debugging
     src_dir_list = os.listdir(dir_path_content)
     for item_name in src_dir_list: # Changed 'src_path' to 'item_name' for clarity
@@ -128,7 +137,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
             os.makedirs(dest_subdir_for_recursion, exist_ok=True) 
             
             # Recursive call
-            generate_pages_recursive(full_src_path, template_path, dest_subdir_for_recursion)
+            generate_pages_recursive(full_src_path, template_path, dest_subdir_for_recursion, basepath)
             
         elif os.path.isfile(full_src_path):
             # This is a file in the content folder
@@ -154,7 +163,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
                 
                 # Call your existing generate_page function
                 # generate_page(source_markdown_path, template_file_path, destination_html_path)
-                generate_page(full_src_path, template_path, full_dest_html_path)
+                generate_page(full_src_path, template_path, full_dest_html_path, basepath)
             else:
                 print(f"Skipping non-Markdown file: {item_name}")
                 # Optionally, you could copy other static files here if needed,
@@ -327,13 +336,13 @@ def main():
 #    print(src_to_dst('static/', 'public/'))
 #    print(generate_page('content/index.md', 'template.html', 'public/index.html'))
 
-    src_to_dst('static/', 'public/')
+    src_to_dst('static/', 'docs/')
 #    generate_page('content/index.md', 'template.html', 'public/index.html')
 #    generate_page('content/blog/glorfindel/index.md', 'template.html', 'public/blog/glorfindel/index.html')
 #    generate_page('content/blog/tom/index.md', 'template.html', 'public/blog/tom/index.html')
 #    generate_page('content/blog/majesty/index.md', 'template.html', 'public/blog/majesty/index.html')
 #    generate_page('content/contact/index.md', 'template.html', 'public/contact/index.html')
-    generate_pages_recursive('content', 'template.html', 'public')
+    generate_pages_recursive('content', 'template.html', 'docs', basepath)
 
 
 if __name__ == "__main__":
