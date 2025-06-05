@@ -12,3 +12,5 @@ python3 -m http.server 8888
 ```
 python3 -m http.server 8888
 ```
+> [!NOTE]
+> Move all of the `docs` to the root directory. This will enable the `index.html` to load on the W&M CS Website
