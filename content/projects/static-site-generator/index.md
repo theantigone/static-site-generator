@@ -1,4 +1,4 @@
-# Static Site Generator
+# 🌐 Static Site Generator
 
 [< Back Home](/)
 
