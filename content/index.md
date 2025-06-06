@@ -29,4 +29,16 @@
 Java, Python, C, HTML, CSS, JavaScript, TypeScript
 ```
 
+## 🖥️ Systems
+
+```
+Windows, Mac OS X, Linux, Android, iOS
+```
+
+## 🛠️ Tools
+
+```
+Git, GitHub, GitLab, npm, OMR, bash
+```
+
 Want to get in touch? [Contact me here](/contact).

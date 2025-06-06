@@ -1,4 +1,4 @@
-# 🛠️ Fine-Tuning for `if` Statements
+# ⚙️ Fine-Tuning for `if` Statements
 
 [< Back to Projects](/projects)
 

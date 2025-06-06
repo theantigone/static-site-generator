@@ -16,5 +16,5 @@
 ## 🤖 GenAI for Software Development Projects (CSCI 420/520)
 
 - 🔡 [N-gram Language Modeling](/projects/ngram-language-modeling)
-- 🛠️ [Fine-Tuning for if statements](/projects/fine-tuning-models)
+- ⚙️ [Fine-Tuning for if statements](/projects/fine-tuning-models)
 - ✍️ [Prompt Engineering LLMs](/projects/prompt-engineering)
