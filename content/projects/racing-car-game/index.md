@@ -6,6 +6,8 @@
 
 ![Racing Car Game Main Menu](/images/carpygame.png)
 
+> Figure 1: The main menu of my GUI game **Try Not To Crash!**.
+
 This personal project is a **Python** game developed using the **Pygame** library. _Try Not To Crash!_ is a survival game where the player driving a car avoids falling obstacles. The player can drive the vehicle left or right across the screen to dodge the obstacles falling from the sky!
 
 The game features a variety of elements including a _main menu_, a _pause menu_, and _different game modes_. The game modes add to the game's challenge by progressively making the falling blocks _harder to dodge_!

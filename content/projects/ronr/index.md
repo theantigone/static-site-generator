@@ -6,6 +6,8 @@
 
 ![Robert's Rules of Order Home Page](/images/ronr.png)
 
+> Figure 1: The home page of my teammates' and my **Robert's Rules of Order** website.
+
 This project is a web-based platform that adapts _Robert's Rules of Order (RONR)_ for digital use. Initially intended for in-person meetings, my teammates and I introduced necessary variations to **support offline, asynchronous discussions** (this website).
 
 This is a **React** website written in **TypeScript** built with **Vite**. The backend is **Express** and also uses TypeScript. Packages and dependencies are managed with **npm**. In order to develop and deploy this website you will need to have installed npm on your system. Deployments for the project are hosted on **Render**. 
