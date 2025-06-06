@@ -1,4 +1,6 @@
-# 🌐 Static Site Generator
+# 🔋 Static Site Generator
+
+[< Back to Projects](/projects)
 
 [< Back Home](/)
 

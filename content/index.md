@@ -4,19 +4,19 @@
 
 ## 👦 About Me
 
-> 💻 I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
+> I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
 >
 > I have hands-on experience with **IT support**, **web development**, **game design**, and **business analytics**!
 >
-> Fun fact about me is that I like to spend my time reading, writing, playing chess, and optimizing computers!
+> Fun fact about me is that I like to spend my time 📚 reading, ✏️ writing, ♟️ playing chess, and 💻 optimizing computers!
 
 ## ⌨️ Projects
 
-- 🌐 [Static Site Generator](/projects/static-site-generator)
+- 🔋 [Static Site Generator](/projects/static-site-generator)
 - 🎵 [MusiKumiLove](/projects/musikumilove)
-- 👥 [Robert's Rules of Order](/projects/ronr)
-- 🚙 [Racing Car Game](/projects/racing-car-game)
-- ...and **more** on my [GitHub](https://github.com/theantigone)!
+- 👥 [Robert's Rules of Order Online](/projects/ronr)
+- 🚙 [Try Not To Crash!](/projects/racing-car-game)
+- ...and **much more** [here](/projects)!
 
 ## 💬 Socials
 
