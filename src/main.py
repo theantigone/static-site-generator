@@ -1,5 +1,5 @@
-from textnode import TextNode, TextType, text_node_to_html_node
-from htmlnode import HTMLNode, LeafNode, ParentNode
+#from textnode import TextNode, TextType, text_node_to_html_node
+#from htmlnode import HTMLNode, LeafNode, ParentNode
 from inline_markdown import *
 
 import os
@@ -39,12 +39,12 @@ def src_to_dst(src, dst):
         src_item_full_paths.append(os.path.join(src, name))
     
     # Initiate the recursive copy
-    recursively_search_directory(src_item_full_paths, src, dst)
+    recursively_search_directory(src_item_full_paths, dst)
     print("Copy complete.")
     # No explicit return needed unless specified by requirements for testing
 
 # Your recursively_search_directory
-def recursively_search_directory(src_list, src, dst):
+def recursively_search_directory(src_list, dst):
     for file_path in src_list: # 'file' renamed to 'file_path' for clarity
         if os.path.isfile(file_path):
             print(f'copying {file_path} to {dst}') # Debug print
@@ -76,7 +76,7 @@ def recursively_search_directory(src_list, src, dst):
             # src_list: items in current source subdir
             # src: current source subdir path (file_path)
             # dst: new destination subdir path (new_dst_dir)
-            recursively_search_directory(subdir_item_full_paths, file_path, new_dst_dir)
+            recursively_search_directory(subdir_item_full_paths, new_dst_dir)
         else:
             # This case is for items that are neither a file nor a directory
             # (e.g., broken symlinks, special files).
@@ -113,7 +113,6 @@ def generate_page(from_path, template_path, dest_path, basepath):
     final_html_content = final_html_content.replace('href="/', f'href="{basepath}')
     final_html_content = final_html_content.replace('src="/', f'src="{basepath}')
 
-    html_filename = os.path.basename(dest_path)
     directory_path = os.path.dirname(dest_path)
     if directory_path and not os.path.exists(directory_path):
         os.makedirs(directory_path)
