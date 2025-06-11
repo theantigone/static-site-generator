@@ -16,4 +16,4 @@ The game also includes _sound effects_ and _background music_, managed using **P
 
 The game's code is organized and modular, with separate functions for handling different aspects of the game such as _drawing the game objects_, _handling user input_, and _managing the game state_. The code also demonstrates **Pygame**'s event-handling system in response to user actions such as _keyboard inputs_ and _mouse clicks_!
 
-[Source Code](https://github.com/theantigone/Try-Not-To-Crash)
+[Source Code](https://github.com/theantigone/try-not-to-crash)

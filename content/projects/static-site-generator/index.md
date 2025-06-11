@@ -12,4 +12,4 @@ This project is a **Python** static site generator that converts raw content fil
 
 > This [website](https://www.cs.wm.edu/~qhoang/) was built using this generator!
 
-[Source Code](https://github.com/theantigone/bootdev-static-site-generator/)
+[Source Code](https://github.com/theantigone/static-site-generator/)
