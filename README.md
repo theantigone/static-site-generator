@@ -2,11 +2,15 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Static Site Generator
 
+**Table of Contents**
+
 - [Description](#description)
 - [Motivation](#motivation)
 - [How to run the website (server) locally](#how-to-run-the-website-server-locally)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+---
 
 ### Description
 
@@ -14,7 +18,7 @@ This project is a **Python** static site generator that converts raw content fil
 
 ### Motivation
 
-I wanted to create a **personal website** that hosts my portfolio/resume. I thought it would be nice to have everything on a website for ease of access to anyone interested.
+I wanted to create a [**personal website**](https://www.cs.wm.edu/~qhoang/) that hosts my portfolio/resume. I thought it would be nice to have everything on a website for ease of access to anyone interested.
 
 ### How to run the website (server) locally
 
