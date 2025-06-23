@@ -5,10 +5,9 @@
 ## 👦 About Me
 
 > I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
->
 > I have hands-on experience with **IT support**, **web development**, **game design**, and **business analytics**!
->
-> Fun fact about me is that I like to spend my time 📚 reading, ✏️ writing, ♟️ playing chess, and 💻 optimizing computers!
+> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using Neovim. I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own static site generator!
+> I'm seeking to improve my coding skills in any way, so if you're hiring, let's chat!
 
 ## ⌨️ Projects
 
@@ -38,7 +37,7 @@ Windows, Mac OS X, Linux, Android, iOS
 ## 🛠️ Tools
 
 ```
-Git, GitHub, GitLab, npm, OMR, bash
+Git, GitHub, GitLab, npm, OMR, bash/zsh
 ```
 
 Want to get in touch? [Contact me here](/contact).
