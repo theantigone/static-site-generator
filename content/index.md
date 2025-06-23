@@ -6,8 +6,8 @@
 
 > I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
 > I have hands-on experience with **IT support**, **web development**, **game design**, and **business analytics**!
-> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using Neovim. I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own static site generator!
-> I'm seeking to improve my coding skills in any way, so if you're hiring, let's chat!
+> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using [Neovim](https://neovim.io/). I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own [static site generator](https://github.com/theantigone/static-site-generator/)!
+> I'm seeking to improve my coding skills in any way, so if you're hiring, [let's chat](https://www.cs.wm.edu/~qhoang/contact/)!
 
 ## ⌨️ Projects
 
