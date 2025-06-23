@@ -2,7 +2,7 @@
 
 ### 👋 Hi, I'm Quang Hoang, and welcome to my page!
 
-## 👦 About Me
+## 👨‍🎓 About Me
 
 > I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
 
@@ -28,7 +28,7 @@
 - 👔 [LinkedIn](https://www.linkedin.com/in/quanghoang1)
 - 🚀 [GitHub](https://github.com/theantigone)
 
-## 🧑‍💻 Coding Languages
+## 👨‍💻 Coding Languages
 
 ```
 Java, Python, C, HTML, CSS, JavaScript, TypeScript
