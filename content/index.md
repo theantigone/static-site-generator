@@ -10,7 +10,7 @@
 > I have hands-on experience with **IT support**, **web development**, **game design**, and **business analytics**!
 
 
-> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using [Neovim](https://neovim.io/). I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own [static site generator](https://github.com/theantigone/static-site-generator/)!
+> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using [Neovim](https://neovim.io/). I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own [static site generator](/projects/static-site-generator)!
 
 
 > I'm seeking to improve my coding skills in any way, so if you're hiring, [let's chat](https://www.cs.wm.edu/~qhoang/contact/)!
@@ -21,7 +21,7 @@
 - 🎵 [MusiKumiLove](/projects/musikumilove)
 - 👥 [Robert's Rules of Order Online](/projects/ronr)
 - 🚙 [Try Not To Crash!](/projects/racing-car-game)
-- ...and **much more** [here](/projects)!
+- ...and **many more** [here](/projects)!
 
 ## 💬 Socials
 
