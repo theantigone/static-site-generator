@@ -7,10 +7,11 @@
 > I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
 
 
-> I have hands-on experience with **IT support**, **web development**, **game design**, and [business analytics](/qhoang-letter-august-2024.pdf)!
+> I have hands-on experience with **IT support**, **web development**, **game design**, and [business analytics](static/qhoang-letter-august-2024.pdf)!
 
+> I discovered a love for coding in sixth grade when my dad gave me a book on HTML and CSS. Ever since then, I’ve had a ton of fun creating HTML sites based on [The Terminators](https://terminator.fandom.com/wiki/Terminator), my favorite YouTubers, and classes in school! Now, with an extensive education in operating systems, cybersecurity, and web development, I’m super excited for a career in software engineering!
 
-> I began to truly enjoy coding and problem-solving when I learned to code in the terminal using [Neovim](https://neovim.io/). I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own [static site generator](/projects/static-site-generator)!
+> My coding passion reignited when I learned to code in the terminal using [Neovim](https://neovim.io/) during college. I would find ways to improve my developer workflow, and this passion has gotten stronger ever since I built my very own [static site generator](/projects/static-site-generator)!
 
 
 > I'm seeking to improve my coding skills in any way, so if you're hiring, [let's chat](https://www.cs.wm.edu/~qhoang/contact/)!
