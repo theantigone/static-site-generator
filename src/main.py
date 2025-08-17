@@ -364,6 +364,8 @@ def main():
         shutil.rmtree("contact")
     if os.path.exists("projects"):
         shutil.rmtree("projects")
+    if os.path.exists("cv"):
+        shutil.rmtree("cv")
     if os.path.exists("index.css"):
         os.remove("index.css")
     if os.path.exists("index.html"):
