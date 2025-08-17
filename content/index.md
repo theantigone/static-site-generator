@@ -7,7 +7,7 @@
 > I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
 
 
-> I have hands-on experience with **IT support**, **web development**, **game design**, and [business analytics](static/qhoang-letter-august-2024.pdf)!
+> I have hands-on experience with **IT support**, **web development**, **game design**, and [business analytics](cv/qhoang-letter-august-2024.pdf)!
 
 > I discovered a love for coding in sixth grade when my dad gave me a book on HTML and CSS. Ever since then, I’ve had a ton of fun creating HTML sites based on [The Terminators](https://terminator.fandom.com/wiki/Terminator), my favorite YouTubers, and classes in school! Now, with an extensive education in operating systems, cybersecurity, and web development, I’m super excited for a career in software engineering!
 
@@ -15,6 +15,11 @@
 
 
 > I'm seeking to improve my coding skills in any way, so if you're hiring, [let's chat](https://www.cs.wm.edu/~qhoang/contact/)!
+
+## 📜 Curriculum Vitae
+
+- 📘 [Resume](cv/hoang-quang-resume.pdf)
+- 📗 [Business Analyst Reference](cv/qhoang-letterlaugust-2024.pdf)
 
 ## ⌨️ Projects
 
