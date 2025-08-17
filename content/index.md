@@ -19,7 +19,7 @@
 ## 📜 Curriculum Vitae
 
 - 📘 [Resume](cv/hoang-quang-resume.pdf)
-- 📗 [Business Analyst Reference](cv/qhoang-letterlaugust-2024.pdf)
+- 📗 [Business Analyst Reference](cv/hoang-quang-letter-august-2024.pdf)
 
 ## ⌨️ Projects
 
