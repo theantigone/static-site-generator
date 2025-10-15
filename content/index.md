@@ -16,10 +16,10 @@
 
 > I'm seeking to improve my coding skills in any way, so if you're hiring, [let's chat](https://www.cs.wm.edu/~qhoang/contact/)!
 
-## 📜 Curriculum Vitae
+## 📜 Credentials
 
-- 📘 [Resume](cv/quang-hoang-resume.pdf)
-- 📗 [Business Analyst Reference](cv/hoang-quang-letter-august-2024.pdf)
+- 📘 [Resume](credentials/hoang-quang-resume.pdf)
+- 📗 [Business Analyst Reference](credentials/hoang-quang-letter-august-2024.pdf)
 
 ## ⌨️ Projects
 
