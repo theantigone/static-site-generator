@@ -18,7 +18,8 @@
 
 ## 📜 Credentials
 
-- 📘 [Resume](credentials/hoang-quang-resume.pdf)
+- 📘 [General Resume](credentials/hoang-quang-resume.pdf)
+- 🤖 [AI/ML Resume](credentials/hoang-quang-resume-ai.pdf)
 - 📗 [Business Analyst Reference](credentials/hoang-quang-letter-august-2024.pdf)
 
 ## ⌨️ Projects
