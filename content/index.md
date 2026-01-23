@@ -4,10 +4,10 @@
 
 ## 👨‍🎓 About Me
 
-> I'm a rising senior pursuing [Computer Science](https://www.wm.edu/as/computerscience/) at [William & Mary](https://www.wm.edu/)!
+> I'm a [Computer Science](https://www.wm.edu/as/computerscience/) graduate at [William & Mary](https://www.wm.edu/)!
 
 
-> I have hands-on experience with **IT support**, **web development**, **game design**, and [business analytics](cv/hoang-quang-letter-august-2024.pdf)!
+> I have hands-on experience with **IT support**, [web development](/projects/ronr), [game design](/projects/racing-car-game), and [business analytics](cv/hoang-quang-letter-august-2024.pdf)!
 
 > I discovered a love for coding in sixth grade when my dad gave me a book on HTML and CSS. Ever since then, I’ve had a ton of fun creating HTML sites based on [The Terminators](https://terminator.fandom.com/wiki/Terminator), my favorite YouTubers, and classes in school! Now, with an extensive education in operating systems, cybersecurity, and web development, I’m super excited for a career in software engineering!
 
