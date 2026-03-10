@@ -8,73 +8,83 @@ class TestInlineMarkdown(unittest.TestCase):
     def test_bold(self):
         node = TextNode("This is text with a **bold** word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
-        self.assertEqual(new_nodes,
-        [
-            TextNode("This is text with a ", TextType.TEXT),
-            TextNode("bold", TextType.BOLD),
-            TextNode(" word", TextType.TEXT),
-        ])
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("bold", TextType.BOLD),
+                TextNode(" word", TextType.TEXT),
+            ],
+        )
 
     def test_italic(self):
         node = TextNode("This is text with an _italic_ word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "_", TextType.ITALIC)
-        self.assertEqual(new_nodes,
-        [
-            TextNode("This is text with an ", TextType.TEXT),
-            TextNode("italic", TextType.ITALIC),
-            TextNode(" word", TextType.TEXT),
-        ])
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with an ", TextType.TEXT),
+                TextNode("italic", TextType.ITALIC),
+                TextNode(" word", TextType.TEXT),
+            ],
+        )
 
     def test_code(self):
         node = TextNode("This is text with a `code block` word", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
-        self.assertEqual(new_nodes,
-        [
-            TextNode("This is text with a ", TextType.TEXT),
-            TextNode("code block", TextType.CODE),
-            TextNode(" word", TextType.TEXT),
-        ])
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("This is text with a ", TextType.TEXT),
+                TextNode("code block", TextType.CODE),
+                TextNode(" word", TextType.TEXT),
+            ],
+        )
 
     def test_non_text(self):
         node = TextNode("**bolded text**", TextType.BOLD)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
-        self.assertEqual(new_nodes,
-        [
-            TextNode("**bolded text**", TextType.BOLD),
-        ])
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("**bolded text**", TextType.BOLD),
+            ],
+        )
 
-#    def test_invalid_delimiter(self):
-#        node = TextNode("invalid delimiter", TextType.TEXT)
-#        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: abc and TextType.BOLD are invalid'):
-#            split_nodes_delimiter([node], "abc", TextType.BOLD)
-#
-#    def test_invalid_type(self):
-#        node = TextNode("invalid type", TextType.TEXT)
-#        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: _ and ERROR are invalid'):
-#            split_nodes_delimiter([node], "_", 'ERROR')
-#
-#    def test_wrong_pair(self):
-#        node = TextNode("wrong pair", TextType.TEXT)
-#        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: ` and TextType.ITALIC are invalid'):
-#            split_nodes_delimiter([node], "`", TextType.ITALIC)
-#
-#    def test_both_invalid(self):
-#        node = TextNode("invalid type", TextType.TEXT)
-#        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: ERROR and ERROR are invalid'):
-#            split_nodes_delimiter([node], "ERROR", 'ERROR')
+    #    def test_invalid_delimiter(self):
+    #        node = TextNode("invalid delimiter", TextType.TEXT)
+    #        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: abc and TextType.BOLD are invalid'):
+    #            split_nodes_delimiter([node], "abc", TextType.BOLD)
+    #
+    #    def test_invalid_type(self):
+    #        node = TextNode("invalid type", TextType.TEXT)
+    #        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: _ and ERROR are invalid'):
+    #            split_nodes_delimiter([node], "_", 'ERROR')
+    #
+    #    def test_wrong_pair(self):
+    #        node = TextNode("wrong pair", TextType.TEXT)
+    #        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: ` and TextType.ITALIC are invalid'):
+    #            split_nodes_delimiter([node], "`", TextType.ITALIC)
+    #
+    #    def test_both_invalid(self):
+    #        node = TextNode("invalid type", TextType.TEXT)
+    #        with self.assertRaisesRegex(ValueError, 'Delimiter and text type must match: ERROR and ERROR are invalid'):
+    #            split_nodes_delimiter([node], "ERROR", 'ERROR')
 
     def test_invalid_textnode(self):
-        node = TextNode('delimiter', 'type')
+        node = TextNode("delimiter", "type")
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
-        self.assertEqual(new_nodes, [TextNode('delimiter', 'type')])
+        self.assertEqual(new_nodes, [TextNode("delimiter", "type")])
 
     def test_entire_text(self):
         node = TextNode("_italic testing_", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "_", TextType.ITALIC)
-        self.assertEqual(new_nodes,
-        [
-            TextNode("italic testing", TextType.ITALIC),
-        ])
+        self.assertEqual(
+            new_nodes,
+            [
+                TextNode("italic testing", TextType.ITALIC),
+            ],
+        )
 
     def test_delim_bold(self):
         node = TextNode("This is text with a **bolded** word", TextType.TEXT)
@@ -155,7 +165,6 @@ class TestInlineMarkdown(unittest.TestCase):
             new_nodes,
         )
 
-
     def test_extract_markdown_images(self):
         matches = extract_markdown_images(
             "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)"
@@ -166,13 +175,25 @@ class TestInlineMarkdown(unittest.TestCase):
         matches = extract_markdown_links(
             "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)"
         )
-        self.assertListEqual([("to boot dev", "https://www.boot.dev"), ("to youtube", "https://www.youtube.com/@bootdotdev")], matches)
+        self.assertListEqual(
+            [
+                ("to boot dev", "https://www.boot.dev"),
+                ("to youtube", "https://www.youtube.com/@bootdotdev"),
+            ],
+            matches,
+        )
 
     def test_extract_markdown_images2(self):
         matches = extract_markdown_images(
             "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
         )
-        self.assertListEqual([("rick roll", "https://i.imgur.com/aKaOqIh.gif"), ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg")], matches)
+        self.assertListEqual(
+            [
+                ("rick roll", "https://i.imgur.com/aKaOqIh.gif"),
+                ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg"),
+            ],
+            matches,
+        )
 
     def test_split_images(self):
         node = TextNode(
@@ -267,7 +288,7 @@ class TestInlineMarkdown(unittest.TestCase):
             TextNode("Text before. ", TextType.TEXT),
             TextNode("![img1](url1) Some text ![img2](url2)", TextType.TEXT),
             TextNode("This is bold", TextType.BOLD),
-            TextNode("Text after ![img3](url3)", TextType.TEXT)
+            TextNode("Text after ![img3](url3)", TextType.TEXT),
         ]
         new_nodes = split_nodes_image(nodes)
         self.assertListEqual(
@@ -276,11 +297,11 @@ class TestInlineMarkdown(unittest.TestCase):
                 TextNode("img1", TextType.IMAGE, "url1"),
                 TextNode(" Some text ", TextType.TEXT),
                 TextNode("img2", TextType.IMAGE, "url2"),
-                TextNode("This is bold", TextType.BOLD), # Passed through
+                TextNode("This is bold", TextType.BOLD),  # Passed through
                 TextNode("Text after ", TextType.TEXT),
                 TextNode("img3", TextType.IMAGE, "url3"),
             ],
-            new_nodes
+            new_nodes,
         )
 
     def test_split_image_at_very_end_of_text(self):
@@ -291,11 +312,11 @@ class TestInlineMarkdown(unittest.TestCase):
                 TextNode("Some leading text ", TextType.TEXT),
                 TextNode("image", TextType.IMAGE, "url.png"),
             ],
-            new_nodes
+            new_nodes,
         )
 
     def test_text_to_textnodes(self):
-        text = 'This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)'
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
         new_text = text_to_textnodes(text)
         self.assertListEqual(
             [
@@ -306,11 +327,13 @@ class TestInlineMarkdown(unittest.TestCase):
                 TextNode(" word and a ", TextType.TEXT),
                 TextNode("code block", TextType.CODE),
                 TextNode(" and an ", TextType.TEXT),
-                TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+                TextNode(
+                    "obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"
+                ),
                 TextNode(" and a ", TextType.TEXT),
                 TextNode("link", TextType.LINK, "https://boot.dev"),
             ],
-            new_text
+            new_text,
         )
 
     def test_markdown_to_blocks(self):
@@ -354,19 +377,16 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         )
 
     def test_markdown_to_blocks_multiple_newlines(self):
-        md = "Block 1\n\n\nBlock 2\n\n\n\nBlock 3" # 3 and 4 newlines
+        md = "Block 1\n\n\nBlock 2\n\n\n\nBlock 3"  # 3 and 4 newlines
         blocks = markdown_to_blocks(md)
-        self.assertEqual(
-            blocks,
-            ["Block 1", "Block 2", "Block 3"]
-        )
+        self.assertEqual(blocks, ["Block 1", "Block 2", "Block 3"])
 
     def test_markdown_to_blocks_with_whitespace_in_blocks(self):
         md = "  Block 1 has spaces  \n\n  \n  Block 2 also  "
         blocks = markdown_to_blocks(md)
         self.assertEqual(
             blocks,
-            ["Block 1 has spaces", "Block 2 also"] # Individual blocks stripped
+            ["Block 1 has spaces", "Block 2 also"],  # Individual blocks stripped
         )
 
     def test_markdown_to_blocks_empty_input(self):
@@ -379,88 +399,86 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         blocks = markdown_to_blocks(md)
         self.assertEqual(blocks, [])
 
-
     def test_block_to_block_heading(self):
-        heading1 = '# This is just a heading'
-        heading2 = '## Ths is just a heading'
-        heading3 = '### This is just a heading'
-        heading4 = '#### This is just a heading'
-        heading5 = '##### This is just a heading'
-        heading6 = '###### This is just a heading'
+        heading1 = "# This is just a heading"
+        heading2 = "## Ths is just a heading"
+        heading3 = "### This is just a heading"
+        heading4 = "#### This is just a heading"
+        heading5 = "##### This is just a heading"
+        heading6 = "###### This is just a heading"
         block_type1 = block_to_block_type(heading1)
         block_type2 = block_to_block_type(heading2)
         block_type3 = block_to_block_type(heading3)
         block_type4 = block_to_block_type(heading4)
         block_type5 = block_to_block_type(heading5)
         block_type6 = block_to_block_type(heading6)
-        self.assertEqual(block_type1, 'heading')
-        self.assertEqual(block_type2, 'heading')
-        self.assertEqual(block_type3, 'heading')
-        self.assertEqual(block_type4, 'heading')
-        self.assertEqual(block_type5, 'heading')
-        self.assertEqual(block_type6, 'heading')
+        self.assertEqual(block_type1, "heading")
+        self.assertEqual(block_type2, "heading")
+        self.assertEqual(block_type3, "heading")
+        self.assertEqual(block_type4, "heading")
+        self.assertEqual(block_type5, "heading")
+        self.assertEqual(block_type6, "heading")
 
     def test_block_to_block_code(self):
-        code1 = '```code```'
-        code2 = '``` code ```'
-        code3 = '''```
+        code1 = "```code```"
+        code2 = "``` code ```"
+        code3 = """```
             code
-            ```'''
-        code4 = '''```code
-            ```'''
+            ```"""
+        code4 = """```code
+            ```"""
         block_type1 = block_to_block_type(code1)
         block_type2 = block_to_block_type(code2)
         block_type3 = block_to_block_type(code3)
         block_type4 = block_to_block_type(code4)
-        self.assertEqual(block_type1, 'code')
-        self.assertEqual(block_type2, 'code')
-        self.assertEqual(block_type3, 'code')
-        self.assertEqual(block_type4, 'code')
+        self.assertEqual(block_type1, "code")
+        self.assertEqual(block_type2, "code")
+        self.assertEqual(block_type3, "code")
+        self.assertEqual(block_type4, "code")
 
     def test_block_to_block_quote(self):
-        quote1 = '> quote'
-        quote2 = '>  quote'
-        quote3 = '>    '
+        quote1 = "> quote"
+        quote2 = ">  quote"
+        quote3 = ">    "
         block_type1 = block_to_block_type(quote1)
         block_type2 = block_to_block_type(quote2)
         block_type3 = block_to_block_type(quote3)
-        self.assertEqual(block_type1, 'quote')
-        self.assertEqual(block_type2, 'quote')
-        self.assertEqual(block_type3, 'quote')
+        self.assertEqual(block_type1, "quote")
+        self.assertEqual(block_type2, "quote")
+        self.assertEqual(block_type3, "quote")
 
     def test_block_to_block_unordered_list(self):
-        unordered_list1 = '- list'
-        unordered_list2 = '-  list'
-        unordered_list3 = '-    '
+        unordered_list1 = "- list"
+        unordered_list2 = "-  list"
+        unordered_list3 = "-    "
         block_type1 = block_to_block_type(unordered_list1)
         block_type2 = block_to_block_type(unordered_list2)
         block_type3 = block_to_block_type(unordered_list3)
-        self.assertEqual(block_type1, 'unordered_list')
-        self.assertEqual(block_type2, 'unordered_list')
-        self.assertEqual(block_type3, 'unordered_list')
+        self.assertEqual(block_type1, "unordered_list")
+        self.assertEqual(block_type2, "unordered_list")
+        self.assertEqual(block_type3, "unordered_list")
 
     def test_block_to_block_ordered_list(self):
-        ordered_list1 = '1. list\n2. d cane\n3. put it down'
+        ordered_list1 = "1. list\n2. d cane\n3. put it down"
         block_type1 = block_to_block_type(ordered_list1)
-        self.assertEqual(block_type1, 'ordered_list')
+        self.assertEqual(block_type1, "ordered_list")
 
     def test_block_to_block_paragraph(self):
-        paragraph1 = 'hello world'
-        paragraph2 = ''
-        paragraph3 = ' '
-        paragraph4 = '```my name jeff'
-        paragraph5 = '1  d cane'
+        paragraph1 = "hello world"
+        paragraph2 = ""
+        paragraph3 = " "
+        paragraph4 = "```my name jeff"
+        paragraph5 = "1  d cane"
         block_type1 = block_to_block_type(paragraph1)
         block_type2 = block_to_block_type(paragraph2)
         block_type3 = block_to_block_type(paragraph3)
         block_type4 = block_to_block_type(paragraph4)
         block_type5 = block_to_block_type(paragraph5)
-        self.assertEqual(block_type1, 'paragraph')
-        self.assertEqual(block_type2, 'paragraph')
-        self.assertEqual(block_type3, 'paragraph')
-        self.assertEqual(block_type4, 'paragraph')
-        self.assertEqual(block_type5, 'paragraph')
-
+        self.assertEqual(block_type1, "paragraph")
+        self.assertEqual(block_type2, "paragraph")
+        self.assertEqual(block_type3, "paragraph")
+        self.assertEqual(block_type4, "paragraph")
+        self.assertEqual(block_type5, "paragraph")
 
     def test_mixed_line_quote_is_paragraph(self):
         # A true quote block requires ALL lines to start with '>'
@@ -472,7 +490,7 @@ This is a paragraph of text. It has some **bold** and _italic_ words inside of i
         self.assertEqual(block_to_block_type(block), "unordered_list")
 
     def test_non_sequential_ordered_list_is_paragraph(self):
-        block = "1. First item\n3. Third item" # Skips '2.'
+        block = "1. First item\n3. Third item"  # Skips '2.'
         self.assertEqual(block_to_block_type(block), "paragraph")
 
     def test_embedded_heading_is_paragraph(self):
