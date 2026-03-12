@@ -34,6 +34,7 @@
 - 👔 [LinkedIn](https://www.linkedin.com/in/quanghoang1)
 - 🚀 [GitHub](https://github.com/theantigone)
 - 📝 [Handshake](https://app.joinhandshake.com/profiles/quang)
+- 👑 [W&M Symplicity](https://wm-csm.symplicity.com/profiles/quang.hoang)
 
 ## 👨‍💻 Coding Languages
 
